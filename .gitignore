@@ -3,3 +3,9 @@
 ################################################################################
 
 /.vs/coding-challenge/v15/.suo
+/LoanWebApi/LoanWebApi/bin
+/LoanWebApi/LoanWebApi/obj/Debug
+/LoanWebApi/LoanWebApi.Tests/bin/Debug
+/LoanWebApi/LoanWebApi.Tests/obj/Debug
+/LoanWebApi/packages
+/LoanWebApi/LoanWebApi/obj/Release
