@@ -22,9 +22,40 @@ namespace LoanWebApi.Repositories
             return _dbSet.ToList();
         }
 
+        public virtual Loan GetById(int id)
+        {
+            return _dbSet.Find(id);
+        }
+
         public virtual Loan GetByAccountNo(int accountNo)
         {
             return _dbSet.FirstOrDefault(acct => acct.AccountNo == accountNo);
+        }
+
+        public virtual void Insert(Loan loan)
+        {
+            _dbSet.Add(loan);
+        }
+
+        public virtual void Delete(int id)
+        {
+            Loan loanToDelete = _dbSet.Find(id);
+            Delete(loanToDelete);
+        }
+
+        public virtual void Delete(Loan loanToDelete)
+        {
+            if (_context.Entry(loanToDelete).State == EntityState.Detached)
+            {
+                _dbSet.Attach(loanToDelete);
+            }
+            _dbSet.Remove(loanToDelete);
+        }
+
+        public virtual void Update(Loan loanToUpdate)
+        {
+            _dbSet.Attach(loanToUpdate);
+            _context.Entry(loanToUpdate).State = EntityState.Modified;
         }
     }
 }

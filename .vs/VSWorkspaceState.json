@@ -1,10 +1,9 @@
 {
   "ExpandedNodes": [
     "",
-    "\\loan-management\\src",
-    "\\loan-management\\src\\app",
-    "\\loan-management\\src\\app\\personal-loan"
+    "\\LoanWebApi",
+    "\\LoanWebApi\\LoanWebApi"
   ],
-  "SelectedNode": "\\loan-management",
+  "SelectedNode": "\\LoanWebApi\\LoanWebApi",
   "PreviewInSolutionExplorer": false
 }

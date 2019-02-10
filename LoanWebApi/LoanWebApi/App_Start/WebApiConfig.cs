@@ -1,8 +1,11 @@
-﻿using Newtonsoft.Json.Serialization;
+﻿using LoanWebApi.ActionFIlters;
+using LoanWebApi.App_Start;
+using Newtonsoft.Json.Serialization;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using Unity;
 
 namespace LoanWebApi
 {
@@ -10,6 +13,11 @@ namespace LoanWebApi
     {
         public static void Register(HttpConfiguration config)
         {
+            config.Filters.Add(new LoggingFilterAttribute());
+            config.Filters.Add(new GlobalExceptionAttribute());
+
+            ContainerConfig.Register(new UnityContainer());
+
             // Web API configuration and services
             config.EnableCors();
 

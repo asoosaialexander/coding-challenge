@@ -7,7 +7,7 @@ using System.Web;
 
 namespace LoanWebApi.UnitOfWork
 {
-    public class UnitOfWork:IDisposable
+    public class UnitOfWork:IUnitOfWork,IDisposable
     {
         private LoansDbEntities _context = null;
         private LoanRepository _loanRepository;

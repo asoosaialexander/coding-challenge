@@ -15,9 +15,9 @@ namespace LoanWebApi.Controllers
     {
         private readonly ILoanService _loanService;
 
-        public LoansController()
+        public LoansController(ILoanService loanService)
         {
-            _loanService = new LoanService();
+            _loanService = loanService;
         }
 
         // GET: api/Loans
@@ -43,7 +43,7 @@ namespace LoanWebApi.Controllers
             {
                 return Request.CreateResponse(HttpStatusCode.OK, loan);
             }
-            return Request.CreateErrorResponse(HttpStatusCode.NotFound, "No loan found for this Account No"); ;
+            throw new Exception("No loan found for this Account No"); 
         }
     }
 }
