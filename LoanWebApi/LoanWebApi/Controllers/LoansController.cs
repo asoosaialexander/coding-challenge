@@ -15,6 +15,11 @@ namespace LoanWebApi.Controllers
     {
         private readonly ILoanService _loanService;
 
+        public LoansController()
+        {
+            _loanService = new LoanService();
+        }
+
         public LoansController(ILoanService loanService)
         {
             _loanService = loanService;

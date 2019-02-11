@@ -1,0 +1,106 @@
+#main{
+  max-width:600px;
+  margin: 0 auto;
+}
+
+.wrapper{
+  border:1px solid black;
+}
+
+.title{
+  font-size: 16px;
+  font-weight: bolder;
+  color: black;
+}
+
+.table{
+  width:800px;
+  border:1px solid rgb(153, 153, 153);
+  color: black;
+  margin-top: 30px;
+}
+
+tableLayout{
+  width: 100%;
+  table-layout: fixed;
+}
+
+.colA{
+  width:10%;
+}
+.colB{
+  width:55%;
+}
+.colC{
+  width:35%;
+}
+
+.col1{
+  width:40%;
+}
+.col2{
+  width:25%;
+}
+.col3{
+  width:35%;
+}
+
+td{
+  padding-top:5px;
+  padding-bottom:5px;
+  padding-left: 20px;
+  color:black;
+}
+.firstRow td{
+  padding-left:10px;
+  padding-top:10px;
+  padding-bottom:10px;
+  background-color:rgb(233, 233, 233);
+  border-bottom:1px solid rgb(153, 153, 153);
+}
+
+.secondRow td{
+  padding-top:10px;
+  padding-bottom:10px;
+  border-bottom:1px solid rgb(153, 153, 153);
+}
+
+.lastRow td{
+  padding-bottom: 10px;
+}
+
+.bold{
+  font-weight: bold;
+}
+
+.message{
+  font-size: 14px;
+}
+
+.warning{
+  background-color: rgb(218, 218, 218);
+  border-left: 3px solid grey;
+  border-radius: 5px;
+  width: 400px;
+  padding: 10px 25px 10px 25px;
+}
+
+button{
+  width: 230px;
+  font-size: 10px;
+  font-family: Arial, Helvetica, sans-serif;
+  padding: 5px 15px 5px 15px;
+  border: 1px solid lightgray;
+  border-radius: 10px;
+  background-color: white;
+  color:black;
+}
+button:disabled{
+  color: rgb(206, 199, 199);
+  border: 1px solid rgb(240, 240, 240);
+}
+
+.error{
+  color:red;
+  font-style: italic;
+}

@@ -1,0 +1,7 @@
+<div class='container main-content'>
+  <app-personal-loan
+  [personalLoan]="personalLoan$"
+  [totalCarryoverAmount]="totalCarryoverAmount$"
+  [errorMessage]="errorMessage$"
+  (checked)="toggleDetails($event)"></app-personal-loan>
+</div>
