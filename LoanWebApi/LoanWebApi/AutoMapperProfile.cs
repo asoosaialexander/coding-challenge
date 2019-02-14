@@ -1,9 +1,5 @@
-﻿using AutoMapper;
-using LoanWebApi.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using LoanWebApi.Models;
+using AutoMapper;
 
 namespace LoanWebApi
 {
@@ -11,7 +7,6 @@ namespace LoanWebApi
     {
         public AutoMapperProfile()
         {
-            //CreateMap<List<Loan>, List<LoanModel>>();
             CreateMap<Loan, LoanModel>();
         }
     }

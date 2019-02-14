@@ -1,19 +1,17 @@
-﻿using AutoMapper;
-using LoanWebApi.Controllers;
-using LoanWebApi.Repositories;
-using LoanWebApi.Services;
-using Moq;
-using Newtonsoft.Json;
-using NUnit.Framework;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Hosting;
+using AutoMapper;
+using LoanWebApi.Controllers;
+using LoanWebApi.Repositories;
+using LoanWebApi.Services;
+using Newtonsoft.Json;
+using NUnit.Framework;
+using Moq;
 
 namespace LoanWebApi.Tests.Controllers
 {
@@ -103,7 +101,7 @@ namespace LoanWebApi.Tests.Controllers
             return mockRepo.Object;
         }
 
-        [Test]
+        [TestCase]
         public void GetAllLoansTest()
         {
             var loansController = new LoansController(_loanService)
@@ -122,24 +120,45 @@ namespace LoanWebApi.Tests.Controllers
             Assert.AreEqual(_response.StatusCode, HttpStatusCode.OK);
             Assert.AreEqual(responseResult.Any(), true);
         }
-
-        [Test]
-        public void GetLoanByAccountNo()
+        
+        [TestCase(415593955, 415593955)]
+        [TestCase(549442240, 549442240)]
+        public void GetLoanByAccountNo(int input, int expected)
         {
             var loansController = new LoansController(_loanService)
             {
                 Request = new HttpRequestMessage
                 {
                     Method = HttpMethod.Get,
-                    RequestUri = new Uri(ServiceBaseURL + "loans/415593955")
+                    RequestUri = new Uri(ServiceBaseURL + "loans/" + input)
                 }
             };
             loansController.Request.Properties.Add(HttpPropertyKeys.HttpConfigurationKey, new HttpConfiguration());
-            _response = loansController.Get(415593955);
+            _response = loansController.Get(input);
 
             var responseResult = JsonConvert.DeserializeObject<Loan>(_response.Content.ReadAsStringAsync().Result);
-            Assert.AreEqual(_response.StatusCode, HttpStatusCode.OK);
-            Assert.AreEqual(responseResult.AccountName, _loans.Find(a => a.AccountNo == 415593955).AccountName);
+            Assert.AreEqual(HttpStatusCode.OK, _response.StatusCode);
+            Assert.AreEqual(responseResult.AccountName, _loans.Find(a => a.AccountNo == expected).AccountName);
+        }
+
+        [TestCase(111111111)]
+        [TestCase(222222222)]
+        public void LoanByAccountNoIsNotFound(int input)
+        {
+            var loansController = new LoansController(_loanService)
+            {
+                Request = new HttpRequestMessage
+                {
+                    Method = HttpMethod.Get,
+                    RequestUri = new Uri(ServiceBaseURL + "loans/" + input)
+                }
+            };
+            loansController.Request.Properties.Add(HttpPropertyKeys.HttpConfigurationKey, new HttpConfiguration());
+            _response = loansController.Get(input);
+
+            var responseResult = JsonConvert.DeserializeObject<Loan>(_response.Content.ReadAsStringAsync().Result);
+            Assert.AreEqual(HttpStatusCode.NotFound, _response.StatusCode);
+            Assert.False(_loans.Any(a => a.AccountNo == input));
         }
 
         [OneTimeTearDown]

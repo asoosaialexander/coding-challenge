@@ -1,12 +1,12 @@
-﻿using LoanWebApi.Models;
-using LoanWebApi.Services;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Cors;
+using LoanWebApi.Models;
+using LoanWebApi.Services;
 
 namespace LoanWebApi.Controllers
 {
@@ -48,7 +48,7 @@ namespace LoanWebApi.Controllers
             {
                 return Request.CreateResponse(HttpStatusCode.OK, loan);
             }
-            throw new Exception("No loan found for this Account No"); 
+            return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Loan not found for account no");
         }
     }
 }

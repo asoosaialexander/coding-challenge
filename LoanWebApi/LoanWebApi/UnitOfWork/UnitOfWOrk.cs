@@ -1,9 +1,6 @@
-﻿using LoanWebApi.Repositories;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Diagnostics;
-using System.Linq;
-using System.Web;
+using LoanWebApi.Repositories;
 
 namespace LoanWebApi.UnitOfWork
 {

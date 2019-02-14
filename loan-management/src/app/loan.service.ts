@@ -3,18 +3,18 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of, throwError } from 'rxjs';
 import { catchError, tap, map } from 'rxjs/operators';
 import { Loan } from './loan';
+import { environment } from '../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoanService {
 
-  private productsUrl = 'http://localhost:58755/api/loans';
+  private productsUrl = environment.apiUrl;
 
   constructor(private http: HttpClient) { }
 
   getLoans(): Observable<Loan[]> {
-    console.log("Loading Loans");
     return this.http.get<Loan[]>(this.productsUrl)
       .pipe(
         tap(data => console.log(JSON.stringify(data))),

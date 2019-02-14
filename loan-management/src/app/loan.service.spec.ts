@@ -1,7 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
 import { LoanService } from 'src/app/loan.service';
-import {Loan} from 'src/app/loan';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { AppModule } from 'src/app/app.module';
 
@@ -18,6 +17,17 @@ describe('LoanService', () => {
 
   // Add tests for all() method
   describe('getLoans', () => {
+    it('should return empty records', () => {
+      const userResponse = [];
+      let response;
+      spyOn(loanService, 'getLoans').and.returnValue(of(userResponse));
+
+      loanService.getLoans().subscribe(loans =>
+        response = loans);
+
+      expect(response).toEqual([]);
+    });
+
     it('should return all loans', () => {
       const userResponse = [
         { accountName: 'account1', accountNo: 11111111111 },

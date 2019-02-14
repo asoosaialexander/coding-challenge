@@ -1,15 +1,12 @@
-﻿using LoanWebApi.Repositories;
-using LoanWebApi.Services;
-using LoanWebApi.UnitOfWork;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using NUnit.Framework;
+using AutoMapper;
 using Moq;
 using LoanWebApi.Models;
-using AutoMapper;
+using LoanWebApi.Repositories;
+using LoanWebApi.Services;
 
 namespace LoanWebApi.Tests.Services
 {
@@ -26,7 +23,9 @@ namespace LoanWebApi.Tests.Services
         public void Setup()
         {
             _loans = SetUpLoans();
+            Mapper.Reset();
             Mapper.Initialize(cfg => cfg.AddProfile<AutoMapperProfile>());
+
         }
 
         private static List<Loan> SetUpLoans()
@@ -95,31 +94,35 @@ namespace LoanWebApi.Tests.Services
             return mockRepo.Object;
         }
 
-        [Test]
-        public void GetLoanByWrongIdTest()
+        [TestCase(0)]
+        [TestCase(-1)]
+        [TestCase(20)]
+        public void NullTestingForGetLoanById(int input)
         {
-            var loan = _loanService.GetLoanById(0);
+            var loan = _loanService.GetLoanById(input);
             Assert.Null(loan);
         }
 
-        [Test]
-        public void UpdateLoanTest()
+        [TestCase("New Account", 1, "New Account")]
+        [TestCase("Another New Account", 1, "Another New Account")]
+        public void UpdateLoanTest(string inputAccountNm, int expectedLoanId,
+            string expectedAccountNm)
         {
             var firstLoan = _loans.First();
-            firstLoan.AccountName = "New Account Name";
+            firstLoan.AccountName = inputAccountNm;
             var updatedLoan = new LoanModel()
             {
                 Id = firstLoan.Id,
                 AccountName = firstLoan.AccountName,
-                AccountNo=firstLoan.AccountNo,
-                Balance=firstLoan.Balance,
-                Interest=firstLoan.Interest,
-                EarlyPaymentFee=firstLoan.EarlyPaymentFee,
-                Carryover=firstLoan.Carryover
+                AccountNo = firstLoan.AccountNo,
+                Balance = firstLoan.Balance,
+                Interest = firstLoan.Interest,
+                EarlyPaymentFee = firstLoan.EarlyPaymentFee,
+                Carryover = firstLoan.Carryover
             };
             _loanService.UpdateLoan(firstLoan.Id, updatedLoan);
-            Assert.That(firstLoan.Id, Is.EqualTo(1)); // hasn't changed
-            Assert.That(firstLoan.AccountName, Is.EqualTo("New Account Name")); // Loan name changed
+            Assert.That(firstLoan.Id, Is.EqualTo(expectedLoanId)); // hasn't changed
+            Assert.That(firstLoan.AccountName, Is.EqualTo(expectedAccountNm)); // Loan name changed
         }
 
         [Test]
